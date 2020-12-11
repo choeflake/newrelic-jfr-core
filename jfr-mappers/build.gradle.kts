@@ -2,13 +2,20 @@ java {
     disableAutoTargetJvm()
 }
 
+// Main source set compiles against java 8
 tasks.withType<JavaCompile>().configureEach {
+    javaCompiler.set(javaToolchains.compilerFor {
+        languageVersion.set(JavaLanguageVersion.of(8))
+    })
+}
+
+// Test source set can compile against java 11
+tasks.named<JavaCompile>("compileTestJava") {
     javaCompiler.set(javaToolchains.compilerFor {
         languageVersion.set(JavaLanguageVersion.of(11))
     })
 }
-
-tasks.withType<Test>().configureEach {
+tasks.named<Test>("test") {
     javaLauncher.set(javaToolchains.launcherFor {
         languageVersion.set(JavaLanguageVersion.of(11))
     })
