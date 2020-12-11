@@ -9,14 +9,9 @@ tasks.withType<JavaCompile>().configureEach {
     })
 }
 
-// Test source set can compile against java 11
+// Test source set compiles against java 11
 tasks.named<JavaCompile>("compileTestJava") {
     javaCompiler.set(javaToolchains.compilerFor {
-        languageVersion.set(JavaLanguageVersion.of(11))
-    })
-}
-tasks.named<Test>("test") {
-    javaLauncher.set(javaToolchains.launcherFor {
         languageVersion.set(JavaLanguageVersion.of(11))
     })
 }

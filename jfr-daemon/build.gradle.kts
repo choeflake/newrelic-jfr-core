@@ -25,6 +25,11 @@ dependencies {
     implementation("com.google.code.gson:gson:${Versions.gson}")
 }
 
+tasks.jar {
+    // Create shadowJar instead of jar
+    enabled = false
+}
+
 tasks.shadowJar {
     archiveClassifier.set("")
     manifest {
@@ -43,7 +48,7 @@ publishing {
             groupId = "com.newrelic"
             artifactId = "jfr-daemon"
             version = version
-            from(components["java"])
+            project.shadow.component(this)
             pom {
                 name.set(project.name)
                 description.set("JFR Daemon")
